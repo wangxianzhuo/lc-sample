@@ -17,28 +17,47 @@ import (
 
 const (
 	systemVer = "1.0"
-	appSecret = ""
-	appID     = ""
+	appSecret = "efc4ecc4dbab48e78669415775be61"
+	appID     = "lca07bc9ad777c4c5d"
 )
 
-var deviceID = ""
-var adminToken = ""
+var deviceID = "4D0699DPAZ72A1D"
+var adminToken = "At_e4f2d3bcf6dc46dfaf43c74f65c768fa"
 
 func main() {
-	accessToken()
+	// accessToken()
 	// deviceList()
 	// bindDeviceInfo(deviceID)
-	// checkDeviceBindOrNot()
+	checkDeviceBindOrNot(deviceID)
 	// setAllStorageStrategy(deviceID, "on")
 	// getStorageStrategy(deviceID)
-	// queryCloudRecordCallNum(35)
+	// queryCloudRecordCallNum(28)
 	// setStorageStrategy(deviceID, "on")
 	// openCloudRecord(deviceID, 35)
-	// queryCloudRecordBitmap(deviceID, 2018, 12)
-	// queryLocalRecordNum(deviceID, "2018-12-01 00:00:00", "2018-12-31 00:00:00")
-	// queryLocalRecords(deviceID, "2018-12-01 00:00:00", "2018-12-31 00:00:00", "1-30")
-	// queryCloudRecordNum(deviceID, "2018-12-01 00:00:00", "2018-12-31 00:00:00")
-	// queryCloudRecords(deviceID, "2018-12-01 00:00:00", "2018-12-31 00:00:00", "1-30")
+	// queryCloudRecordBitmap(deviceID, 2019, 1)
+	// queryLocalRecordBitmap(deviceID, 2019, 1)
+	// unBindDevice(deviceID)
+	// queryLocalRecordNum(deviceID, "2019-01-01 00:00:00", "2019-01-31 00:00:00")
+	// queryLocalRecords(deviceID, "2019-01-01 00:00:00", "2019-01-31 00:00:00", "1-30")
+	// queryCloudRecordNum(deviceID, "2019-01-01 00:00:00", "2019-01-31 00:00:00")
+	// queryCloudRecords(deviceID, "2019-01-01 00:00:00", "2019-01-31 00:00:00", "1-30")
+	// setDeviceSnap(deviceID, "1", false)
+}
+
+func setDeviceSnap(deviceID, channelID string, encrypt bool) error {
+	return lcRequest("https://openapi.lechange.cn:443/openapi/setDeviceSnap", map[string]interface{}{
+		"token":     adminToken,
+		"deviceId":  deviceID,
+		"channelId": channelID,
+		"encrypt":   encrypt,
+	})
+}
+
+func unBindDevice(deviceID string) error {
+	return lcRequest("https://openapi.lechange.cn:443/openapi/unBindDevice", map[string]interface{}{
+		"token":    adminToken,
+		"deviceId": deviceID,
+	})
 }
 
 func queryLocalRecords(deviceID, beginTime, endTime, queryRange string) error {
